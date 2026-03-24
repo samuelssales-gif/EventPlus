@@ -12,18 +12,15 @@ namespace EventPlusTorloni.WebAPI.Repositorios
         {
             _context = context;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="instituicao"></param>
-        public void Atualizar(Guid id, Instituicao instituicao)
 
+        public void Atualizar(Guid id, Instituicao instituicao)
         {
-            var InstituicaoBuscado = _context.Instituicaos.Find(id);
-            if (InstituicaoBuscado != null)
+            var instituicaoBuscada = _context.Instituicaos.Find(id);
+
+            if (instituicaoBuscada != null)
             {
-                InstituicaoBuscado.NomeFantasia = InstituicaoBuscado.NomeFantasia;
+                instituicaoBuscada.NomeFantasia = instituicao.NomeFantasia;
+
                 _context.SaveChanges();
             }
         }
@@ -32,34 +29,26 @@ namespace EventPlusTorloni.WebAPI.Repositorios
         {
             return _context.Instituicaos.Find(id)!;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="istituicao"></param>
-        /// <exception cref="NotImplementedException"></exception>
 
-        public void Cadastrar(Instituicao istituicao)
+        public void Cadastrar(Instituicao instituicao)
         {
-           _context.Instituicaos.Add(istituicao);
+
+            _context.Instituicaos.Add(instituicao);
             _context.SaveChanges();
         }
 
         public void Deletar(Guid id)
         {
             var instituicaoBuscada = _context.Instituicaos.Find(id);
-            if(instituicaoBuscada != null)
+
+            if (instituicaoBuscada != null)
             {
                 _context.Instituicaos.Remove(instituicaoBuscada);
                 _context.SaveChanges();
             }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
 
-        public List<Instituicao> listar()
+        public List<Instituicao> Listar()
         {
             return _context.Instituicaos
                 .OrderBy(instituicao => instituicao.NomeFantasia)

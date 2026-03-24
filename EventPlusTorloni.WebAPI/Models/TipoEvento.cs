@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using EventPlusTorloni.WebAPI.Models;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
 
-namespace EventPlusTorloni.WebAPI.Models;
-
-[Table("TipoEvento")]
 public partial class TipoEvento
 {
     [Key]

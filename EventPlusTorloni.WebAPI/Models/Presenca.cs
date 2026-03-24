@@ -12,6 +12,8 @@ public partial class Presenca
     [Key]
     public Guid IdPresensa { get; set; }
 
+    public bool Situacao { get; set; }
+
     public Guid? IdUsuario { get; set; }
 
     public Guid? IdEvento { get; set; }

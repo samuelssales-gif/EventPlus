@@ -1,14 +1,23 @@
-
+using Azure.AI.ContentSafety;
+using EventPlus.WebAPI.Repositories;
 using EventPlusTorloni.WebAPI.BdContextEvent;
 using EventPlusTorloni.WebAPI.Interfaces;
 using EventPlusTorloni.WebAPI.Repositorios;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<EventContext>(options => 
+var endpoint = "";
+
+var apiKey = "";
+
+var client = new ContentSafetyClient(new Uri(endpoint), new Azure.AzureKeyCredential(apiKey));
+
+builder.Services.AddSingleton(client);
+
+builder.Services.AddDbContext<EventContext>(options =>
       options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
@@ -16,7 +25,12 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<ITipoEventoRepository, TipoEventoRepository>();
-
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>(); // linha adicionada
+builder.Services.AddScoped<IEventoRepository, EventoRepository>();
+builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
+builder.Services.AddScoped<ITipoUsuarioRepository, TipoUsuarioRepository>();
+builder.Services.AddScoped<IPresencaRepository, PresencaRepository>();
+builder.Services.AddScoped<IComentarioEventoRepository, ComentarioEventoRepository>();
 //Adiciona Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -37,7 +51,9 @@ builder.Services.AddSwaggerGen(options =>
             Name = "Example Licence",
             Url = new Uri("https://exemple.com/license")
         }
-    });    //Usando a autenticação no swagger
+    });
+
+    //Usando a autenticação no swagger
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -47,13 +63,13 @@ builder.Services.AddSwaggerGen(options =>
         In = ParameterLocation.Header,
         Description = "Insira o token JWT: "
     });
+
     options.AddSecurityRequirement(document => new OpenApiSecurityRequirement
     {
-        [new OpenApiSecuritySchemeReference("Bearer", document)] = Array.Empty<string>().ToList()
+        [new OpenApiSecuritySchemeReference("Bearer", document)] = new List<string>()
     });
-
-
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -63,7 +79,7 @@ if (app.Environment.IsDevelopment())
 
     app.UseSwagger(options => { });
 
-    app.UseSwaggerUI(options => 
+    app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "API de Eventos v1");
         options.RoutePrefix = String.Empty;

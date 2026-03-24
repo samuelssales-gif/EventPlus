@@ -6,15 +6,15 @@ public interface IEventoRepository
 {
     void Cadastrar(Evento evento);
 
-    List<Evento> Listar();
+    List<Evento> List();
 
     void Deletar(Guid IdEvento);
 
-    void Delete(Guid id, Evento evento);
+    void Atualizar(Guid id, Evento evento);
 
-    List<Evento> listarPorId(Guid IdUsuario);
+    List<Evento> ListarPorId(Guid IdUsuario);
 
-    List<Evento> ProximosEvento(Guid IdUsuario);
+    List<Evento> ProximosEventos();
 
-    Evento BuscarPorID(Guid id);
+    Evento BuscarPorId(Guid id);
 }

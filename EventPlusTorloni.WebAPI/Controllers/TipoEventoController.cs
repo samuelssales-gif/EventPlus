@@ -29,7 +29,7 @@ namespace EventPlusTorloni.WebAPI.Controllers
             {
                 return Ok(_tipoEventoRepository.Listar());
             }
-            catch (Exception error)
+                catch (Exception error)
             {
                 return BadRequest(error.Message);
             }
@@ -68,7 +68,7 @@ namespace EventPlusTorloni.WebAPI.Controllers
                 };
 
                 _tipoEventoRepository.Cadastrar(novoTipoEvento);
-                return StatusCode(201);
+                return StatusCode(201, tipoEvento);
             }
             catch (Exception error)
             {

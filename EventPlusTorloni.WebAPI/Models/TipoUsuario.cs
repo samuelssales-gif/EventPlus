@@ -11,6 +11,7 @@ namespace EventPlusTorloni.WebAPI.Models;
 public partial class TipoUsuario
 {
     [Key]
+    [Column("idTipoUsuario")]
     public Guid IdTipoUsuario { get; set; }
 
     [StringLength(100)]

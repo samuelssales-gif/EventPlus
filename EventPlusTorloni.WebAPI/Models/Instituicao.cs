@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventPlusTorloni.WebAPI.Models;
@@ -27,5 +26,6 @@ public partial class Instituicao
     public string Endereco { get; set; } = null!;
 
     [InverseProperty("IdInstituicaoNavigation")]
+    [JsonIgnore]
     public virtual ICollection<Evento> Eventos { get; set; } = new List<Evento>();
 }

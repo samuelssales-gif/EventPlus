@@ -20,7 +20,7 @@ public class TipoEventoRepository :
 
     public void Atualizar(Guid id, TipoEvento tipoEvento)
     {
-        var tipoEventoBuscado = _context.TipoEventos.Find(id);
+        var tipoEventoBuscado = _context.TipoEvento.Find(id);
         if (tipoEventoBuscado != null)
         {
             tipoEventoBuscado.Titulo = tipoEvento.Titulo;
@@ -34,21 +34,21 @@ public class TipoEventoRepository :
     /// <returns>Objeto do TipoEvento com as informações do tipo de evento buscado</returns>
     public TipoEvento BuscarPorId(Guid id)
     {
-        return _context.TipoEventos.Find(id)!;
+        return _context.TipoEvento.Find(id)!;
     }
 
     public void Cadastrar(TipoEvento tipoEvento)
     {
-        _context.TipoEventos.Add(tipoEvento);
+        _context.TipoEvento.Add(tipoEvento);
         _context.SaveChanges();
     }
 
     public void Deletar(Guid id)
     {
-        var tipoEventoBuscado = _context.TipoEventos.Find(id);
+        var tipoEventoBuscado = _context.TipoEvento.Find(id);
         if (tipoEventoBuscado != null)
         {
-            _context.TipoEventos.Remove(tipoEventoBuscado);
+            _context.TipoEvento.Remove(tipoEventoBuscado);
             _context.SaveChanges();
         }
     }
@@ -58,7 +58,7 @@ public class TipoEventoRepository :
     /// <returns>Uma lista de tipo eventos</returns>
     public List<TipoEvento> Listar()
     {
-        return _context.TipoEventos
+        return _context.TipoEvento
             .OrderBy(TipoEvento => TipoEvento.Titulo)
             .ToList();
     }

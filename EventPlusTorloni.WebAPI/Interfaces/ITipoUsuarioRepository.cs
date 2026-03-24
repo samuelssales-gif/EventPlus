@@ -1,13 +1,16 @@
 ﻿
 using EventPlusTorloni.WebAPI.Models;
 
-namespace EventPlus.WebAPI.Interfaces
+namespace EventPlusTorloni.WebAPI.Interfaces
 {
     public interface ITipoUsuarioRepository
     {
-        void Cadastrar(Usuario usuario);
-        Usuario BuscarPorId(Guid id);
-        Usuario BuscarPorEmail(string Email, string Senha);
+        List<TipoUsuario> Listar();
+        void Cadastrar(TipoUsuario tipoUsuario);
+        void Atualizar(Guid id, TipoUsuario tipoUsuario);
+        void Deletar(Guid id);
+        TipoUsuario BuscarPorId(Guid id);
+        
     }
 
 }

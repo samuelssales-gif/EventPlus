@@ -4,11 +4,11 @@ namespace EventPlusTorloni.WebAPI.Interfaces
 {
     public interface IInstituicaoRepository
     {
-        List<Instituicao> listar();
+        List<Instituicao> Listar();
 
-        void Cadastrar(Instituicao istituicao);
+        void Cadastrar(Instituicao instituicao);
 
-        void Atualizar(Guid id, Instituicao istituicao);
+        void Atualizar(Guid id, Instituicao instituicao);
 
         void Deletar(Guid id);
 
